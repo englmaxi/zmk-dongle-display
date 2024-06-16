@@ -1,7 +1,6 @@
 # Dongle Display
 
 This module repository provides a ZMK shield that replaces the built-in status screen with a custom screen designed for 128x64-pixel OLED displays.
-As it shows only the peripheral battery levels, it is recommended to be used on dongles only.
 
 ## Usage
 
@@ -48,6 +47,14 @@ For setup examples, refer to the shields in my [`zmk-config`](https://github.com
 - highest layer name
 - output status
 - peripheral battery levels
+
+## Configuration
+
+To also display the battery level of the dongle/central device, use the following configuration property:
+
+```ini
+CONFIG_ZMK_DONGLE_DISPLAY_DONGLE_BATTERY=y
+```
 
 ## Demo
 ![output](https://github.com/englmaxi/zmk-config/assets/43675074/8d268f23-1a4f-44c3-817e-c36dc96a1f8b)

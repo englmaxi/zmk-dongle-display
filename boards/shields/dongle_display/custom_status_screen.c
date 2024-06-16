@@ -17,7 +17,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static struct zmk_widget_output_status output_status_widget;
 static struct zmk_widget_layer_status layer_status_widget;
-static struct zmk_widget_peripheral_battery_status peripheral_battery_status_widget;
+static struct zmk_widget_dongle_battery_status dongle_battery_status_widget;
 static struct zmk_widget_modifiers modifiers_widget;
 static struct zmk_widget_bongo_cat bongo_cat_widget;
 
@@ -56,8 +56,8 @@ lv_obj_t *zmk_display_status_screen() {
     // lv_obj_align(zmk_widget_layer_status_obj(&layer_status_widget), LV_ALIGN_BOTTOM_LEFT, 2, -18);
     lv_obj_align_to(zmk_widget_layer_status_obj(&layer_status_widget), zmk_widget_bongo_cat_obj(&bongo_cat_widget), LV_ALIGN_BOTTOM_LEFT, 0, 5);
 
-    zmk_widget_peripheral_battery_status_init(&peripheral_battery_status_widget, screen);
-    lv_obj_align(zmk_widget_peripheral_battery_status_obj(&peripheral_battery_status_widget), LV_ALIGN_TOP_RIGHT, 0, 0);
+    zmk_widget_dongle_battery_status_init(&dongle_battery_status_widget, screen);
+    lv_obj_align(zmk_widget_dongle_battery_status_obj(&dongle_battery_status_widget), LV_ALIGN_TOP_RIGHT, 0, 0);
 
     return screen;
 }
