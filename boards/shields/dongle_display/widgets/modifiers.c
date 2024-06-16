@@ -42,23 +42,23 @@ struct modifier_symbol ms_shift = {
     .symbol_dsc = &shift_icon,
 };
 
-LV_IMG_DECLARE(alt_icon);
-struct modifier_symbol ms_alt = {
+LV_IMG_DECLARE(opt_icon);
+struct modifier_symbol ms_opt = {
     .modifier = MOD_LALT | MOD_RALT,
-    .symbol_dsc = &alt_icon,
+    .symbol_dsc = &opt_icon,
 };
 
-LV_IMG_DECLARE(win_icon);
-struct modifier_symbol ms_win = {
+LV_IMG_DECLARE(cmd_icon);
+struct modifier_symbol ms_cmd = {
     .modifier = MOD_LGUI | MOD_RGUI,
-    .symbol_dsc = &win_icon,
+    .symbol_dsc = &cmd_icon,
 };
 
 struct modifier_symbol *modifier_symbols[] = {
     // this order determines the order of the symbols
-    &ms_win,
-    &ms_alt,
     &ms_control,
+    &ms_opt,
+    &ms_cmd,
     &ms_shift
 };
 
