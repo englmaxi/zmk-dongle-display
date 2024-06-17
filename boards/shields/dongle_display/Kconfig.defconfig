@@ -22,6 +22,9 @@ config ZMK_DONGLE_DISPLAY_DONGLE_BATTERY
     bool "Show also the battery level of the dongle"
     depends on BT && (!ZMK_SPLIT_BLE || ZMK_SPLIT_ROLE_CENTRAL)
 
+config ZMK_DONGLE_DISPLAY_MAC_MODIFIERS
+    bool "Use MacOS modifier symbols instead of the Windows symbols"
+
 choice ZMK_DISPLAY_WORK_QUEUE
     default ZMK_DISPLAY_WORK_QUEUE_DEDICATED
 endchoice

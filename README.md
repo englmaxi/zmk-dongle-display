@@ -20,8 +20,7 @@ manifest:
       import: app/west.yml
     - name: zmk-dongle-display
       remote: englmaxi
-      revision: win # Windows modifier symbols
-      # revision: mac # MacOS modifier symbols
+      revision: main
   self:
     path: config
 ```
@@ -54,6 +53,12 @@ To also display the battery level of the dongle/central device, use the followin
 
 ```ini
 CONFIG_ZMK_DONGLE_DISPLAY_DONGLE_BATTERY=y
+```
+
+If you want to use MacOS modifier symbols instead of the Windows modifier symbols, use the following configuration property:
+
+```ini
+CONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y
 ```
 
 ## Demo
