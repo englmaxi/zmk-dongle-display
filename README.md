@@ -1,3 +1,7 @@
+> [!WARNING]  
+> Instead of using a different branch for different modifier symbols, a configuration property has been introduced.
+> You should consider switching to the `main` branch as this one will no longer receive updates.
+
 # Dongle Display
 
 This module repository provides a ZMK shield that replaces the built-in status screen with a custom screen designed for 128x64-pixel OLED displays.
