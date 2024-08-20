@@ -68,7 +68,8 @@ CONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y
 ## Dongle Designs
 - [case1](/cases)
 - [case2](/cases)
-- [PCB with OLED and reset button breakouts](https://github.com/spe2/zmk_dongle_hardware)
-- [Macintosh](https://makerworld.com/en/models/403660)
-- [Redox](https://makerworld.com/en/models/242951)
-- [ZMK Display Dongle](https://makerworld.com/en/models/496738)
+- [Cyberdeck](https://github.com/rafaelromao/keyboards/tree/main/stls/Dongle) by @rafaelromao
+- [Dongle PCB](https://github.com/spe2/zmk_dongle_hardware) by @spe2
+- [Macintosh](https://makerworld.com/en/models/403660) by @rain2813
+- [Redox](https://makerworld.com/en/models/242951) by @rurounikexin
+- [ZMK Display Dongle](https://makerworld.com/en/models/496738) by @yingeling
