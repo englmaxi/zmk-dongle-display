@@ -73,3 +73,6 @@ CONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y
 - [Macintosh](https://makerworld.com/en/models/403660) by @rain2813
 - [Redox](https://makerworld.com/en/models/242951) by @rurounikexin
 - [ZMK Display Dongle](https://makerworld.com/en/models/496738) by @yingeling
+
+## Alternatives
+- [Prospector](https://github.com/carrefinho/prospector) by @carrefinho
