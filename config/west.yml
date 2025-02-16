@@ -2,15 +2,15 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: englmaxi
-      url-base: https://github.com/englmaxi
+    - name: redmasters
+      url-base: https://github.com/redmasters
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
     - name: zmk-config
-      remote: englmaxi
-      revision: master
+      remote: redmasters
+      revision: feature/main-config
   self:
     path: config
