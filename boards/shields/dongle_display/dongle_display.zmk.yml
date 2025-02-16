@@ -4,4 +4,4 @@ name: dongle_display
 type: shield
 url: https://github.com/englmaxi/zmk-dongle-display
 requires: 
-  - i2c_oled
+  - pro_micro_i2c
