@@ -9,7 +9,7 @@ manifest:
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: zmk-config
+    - name: zmk-config-dongle
       remote: redmasters
       revision: feature/main-config
   self:
