@@ -16,7 +16,7 @@
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static struct zmk_widget_output_status output_status_widget;
-static struct zmk_widget_layer_stats layer_stats_widget;
+static struct zmk_widget_layer_status layer_stats_widget;
 static struct zmk_widget_dongle_battery_status dongle_battery_status_widget;
 static struct zmk_widget_modifiers modifiers_widget;
 static struct zmk_widget_bongo_cat bongo_cat_widget;
