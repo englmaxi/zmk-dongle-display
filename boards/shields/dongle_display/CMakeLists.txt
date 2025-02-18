@@ -10,6 +10,7 @@ if(CONFIG_ZMK_DISPLAY AND CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM AND ((NOT CONF
     zephyr_library_sources(widgets/bongo_cat.c)
     zephyr_library_sources(widgets/bongo_cat_images.c)
     target_sources_ifdef(CONFIG_ZMK_HID_INDICATORS app PRIVATE widgets/hid_indicators.c)
+    zephyr_library_sources(widgets/layer_stats.c)
     zephyr_library_sources(widgets/modifiers.c)
     zephyr_library_sources(widgets/modifiers_sym.c)
     zephyr_library_sources(widgets/output_status.c)
