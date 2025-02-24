@@ -72,6 +72,7 @@ CONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y
 - [Dongle PCB](https://github.com/spe2/zmk_dongle_hardware) by @spe2
 - [Macintosh](https://makerworld.com/en/models/403660) by @rain2813
 - [Redox](https://makerworld.com/en/models/242951) by @rurounikexin
+- [sai44 Dongle](https://github.com/leafflat/sai44/tree/main/STL/Dongle) by @leafflat
 - [ZMK Display Dongle](https://makerworld.com/en/models/496738) by @yingeling
 
 ## Alternatives
