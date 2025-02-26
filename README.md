@@ -74,6 +74,8 @@ CONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y
 - [Redox](https://makerworld.com/en/models/242951) by @rurounikexin
 - [sai44 Dongle](https://github.com/leafflat/sai44/tree/main/STL/Dongle) by @leafflat
 - [ZMK Display Dongle](https://makerworld.com/en/models/496738) by @yingeling
+- [ZMK Nice Nano 128x64 OLED Dongle](https://www.printables.com/model/1207682-zmk-nice-nano-128x64-oled-dongle) by @James_909973
+
 
 ## Alternatives
 - [Prospector](https://github.com/carrefinho/prospector) by @carrefinho
