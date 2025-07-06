@@ -79,3 +79,4 @@ CONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y
 
 ## Alternatives
 - [Prospector](https://github.com/carrefinho/prospector) by @carrefinho
+- [YADS](https://github.com/janpfischer/zmk-dongle-screen) by @janpfischer
