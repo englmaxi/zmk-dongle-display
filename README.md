@@ -39,6 +39,20 @@ For setup examples, refer to the shields in my [`zmk-config`](https://github.com
 - If you are using the larger 1.3" OLED, replace `solomon,ssd1306fb` with `sinowealth,sh1106` and set `segment-offset = <2>`.
 - If you are using a nice!nano, replace `xiao_i2c` with `pro_micro_i2c`.
 
+### Summary of what you need to do
+
+Refer to [`zmk-config`](https://github.com/englmaxi/zmk-config/tree/master/boards/shields) as needed.
+
+If you dont have a dongle yet, I suggest you follow the official [dongle guide](https://zmk.dev/docs/development/hardware-integration/dongle).
+
+What you need to do to make the display to work with your dongle is:
+
+- Import this module or copy dongle_display into your boards/shield/ folder
+- Add the needed configs to your dongle's `.defconfig` and `.conf`
+- Add the dongle_display shield to be built together with your dongle in `build.yaml`
+- Add `zephyr,display = &oled;` to the `chosen` block in your dongle's `.overlay`
+- Modify, if needed, your dongle's `.overlay` file so it uses the correct display settings (as said in the topic before)
+
 ## Widgets
 - active hid indicators (CLCK, NLCK, SLCK)
 - active modifiers
