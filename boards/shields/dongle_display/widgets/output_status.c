@@ -171,7 +171,9 @@ static void output_status_update_cb(struct output_status_state state) {
 ZMK_DISPLAY_WIDGET_LISTENER(widget_output_status, struct output_status_state,
                             output_status_update_cb, get_state)
 ZMK_SUBSCRIPTION(widget_output_status, zmk_endpoint_changed);
+#if IS_ENABLED(CONFIG_ZMK_BLE)
 ZMK_SUBSCRIPTION(widget_output_status, zmk_ble_active_profile_changed);
+#endif
 ZMK_SUBSCRIPTION(widget_output_status, zmk_usb_conn_state_changed);
 
 int zmk_widget_output_status_init(struct zmk_widget_output_status *widget, lv_obj_t *parent) {
