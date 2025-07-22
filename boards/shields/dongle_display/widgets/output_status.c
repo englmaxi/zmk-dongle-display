@@ -66,13 +66,22 @@ struct output_status_state {
 };
 
 static struct output_status_state get_state(const zmk_event_t *_eh) {
-    return (struct output_status_state){
-        .selected_endpoint = zmk_endpoints_selected(),
-        .active_profile_index = zmk_ble_active_profile_index(),
-        .active_profile_connected = zmk_ble_active_profile_is_connected(),
-        .active_profile_bonded = !zmk_ble_active_profile_is_open(),
-        .usb_is_hid_ready = zmk_usb_is_hid_ready()
-    };
+    struct output_status_state st;
+
+    st.selected_endpoint = zmk_endpoints_selected();
+
+#if IS_ENABLED(CONFIG_ZMK_BLE)
+    st.active_profile_index     = zmk_ble_active_profile_index();
+    st.active_profile_connected = zmk_ble_active_profile_is_connected();
+    st.active_profile_bonded    = !zmk_ble_active_profile_is_open();
+#else
+    st.active_profile_index     = 0;
+    st.active_profile_connected = false;
+    st.active_profile_bonded    = false;
+#endif
+
+    st.usb_is_hid_ready = zmk_usb_is_hid_ready();
+    return st;
 }
 
 static void anim_x_cb(void * var, int32_t v) {
