@@ -26,6 +26,10 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
     #define SOURCE_OFFSET 0
 #endif
 
+#ifndef ZMK_SPLIT_BLE_PERIPHERAL_COUNT
+#  define ZMK_SPLIT_BLE_PERIPHERAL_COUNT 0
+#endif
+
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
 struct battery_state {
