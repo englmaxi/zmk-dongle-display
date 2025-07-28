@@ -25,6 +25,18 @@ config ZMK_DONGLE_DISPLAY_DONGLE_BATTERY
 config ZMK_DONGLE_DISPLAY_MAC_MODIFIERS
     bool "Use MacOS modifier symbols instead of the Windows symbols"
 
+config ZMK_DONGLE_DISPLAY_BONGO_CAT
+    bool "Display the Bongo Cat widget"
+    default y
+
+config ZMK_DONGLE_DISPLAY_MODIFIERS
+    bool "Display the modifiers widget"
+    default y
+
+config ZMK_DONGLE_DISPLAY_LAYER
+    bool "Display the highest layer widget"
+    default y
+
 choice ZMK_DISPLAY_WORK_QUEUE
     default ZMK_DISPLAY_WORK_QUEUE_DEDICATED
 endchoice
