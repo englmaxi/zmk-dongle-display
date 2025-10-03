@@ -37,6 +37,14 @@ config ZMK_DONGLE_DISPLAY_LAYER
     bool "Display the highest layer widget"
     default y
 
+config ZMK_DONGLE_DISPLAY_WPM
+    bool "Display the WPM widget"
+    default y
+
+config ZMK_DONGLE_DISPLAY_WPM_DISABLED_LAYERS
+    string "Layers in which the widget is disabled, comma separated"
+    default ""
+
 choice ZMK_DISPLAY_WORK_QUEUE
     default ZMK_DISPLAY_WORK_QUEUE_DEDICATED
 endchoice

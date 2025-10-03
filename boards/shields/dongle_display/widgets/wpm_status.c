@@ -6,9 +6,11 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/display.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/wpm_state_changed.h>
+#include <zmk/display/widgets/layer_status.h>
+#include <zmk/endpoints.h>
+#include <zmk/keymap.h>
 
 #include "wpm_status.h"
-//#include <fonts.h>
 
 #ifndef LV_ATTRIBUTE_IMG_SPEEDOMETER
 #define LV_ATTRIBUTE_IMG_SPEEDOMETER
@@ -48,18 +50,26 @@ static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 struct wpm_status_state
 {
     int wpm;
+    const char *layer;
 };
 
 static struct wpm_status_state get_state(const zmk_event_t *_eh)
 {
     const struct zmk_wpm_state_changed *ev = as_zmk_wpm_state_changed(_eh);
+    uint8_t index = zmk_keymap_highest_layer_active();
 
     return (struct wpm_status_state){
-        .wpm = ev ? ev->state : 0};
+        .wpm = ev ? ev->state : 0,
+        .layer = zmk_keymap_layer_name(index)
+    };
 }
 
 static void set_wpm(struct zmk_widget_wpm_status *widget, struct wpm_status_state state)
 {
+    if(strstr(CONFIG_ZMK_DONGLE_DISPLAY_WPM_DISABLED_LAYERS, state.layer) != NULL) {
+        lv_label_set_text(widget->wpm_label, "-");
+        return;
+    }
 
     char wpm_text[12];
     snprintf(wpm_text, sizeof(wpm_text), "%i", state.wpm);
@@ -79,7 +89,6 @@ ZMK_DISPLAY_WIDGET_LISTENER(widget_wpm_status, struct wpm_status_state,
                             wpm_status_update_cb, get_state)
 ZMK_SUBSCRIPTION(widget_wpm_status, zmk_wpm_state_changed);
 
-// output_status.c
 int zmk_widget_wpm_status_init(struct zmk_widget_wpm_status *widget, lv_obj_t *parent)
 {
     widget->obj = lv_obj_create(parent);
