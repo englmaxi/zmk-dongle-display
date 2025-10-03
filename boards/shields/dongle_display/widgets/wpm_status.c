@@ -12,39 +12,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include "wpm_status.h"
 
-#ifndef LV_ATTRIBUTE_IMG_SPEEDOMETER
-#define LV_ATTRIBUTE_IMG_SPEEDOMETER
-#endif
-
-const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SPEEDOMETER uint8_t speedometer_icon_map[] = {
-  0x00, 0x00, 0x00, 0x00, 	/*Color of index 0*/
-  0x00, 0x00, 0x00, 0xff, 	/*Color of index 1*/
-
-  0x00, 0x00, 
-  0x00, 0x00, 
-  0x00, 0x00, 
-  0x0f, 0x80, 
-  0x12, 0x40, 
-  0x28, 0xa0, 
-  0x40, 0x10, 
-  0xa0, 0xa8, 
-  0x81, 0x08, 
-  0xc2, 0x18, 
-  0x82, 0x08, 
-  0x80, 0x08, 
-  0x40, 0x10, 
-  0x20, 0x20, 
-};
-
-const lv_img_dsc_t speedometer_icon = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
-  .header.w = 14,
-  .header.h = 14,
-  .data_size = 36,
-  .data = speedometer_icon_map,
-};
+LV_IMG_DECLARE(sym_speedometer);
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 struct wpm_status_state
@@ -96,7 +64,7 @@ int zmk_widget_wpm_status_init(struct zmk_widget_wpm_status *widget, lv_obj_t *p
 
     lv_obj_t *speedometer = lv_img_create(widget->obj);
     lv_obj_align(speedometer, LV_ALIGN_TOP_LEFT, 0, 0);
-    lv_img_set_src(speedometer, &speedometer_icon);
+    lv_img_set_src(speedometer, &sym_speedometer);
 
     widget->wpm_label = lv_label_create(widget->obj);
     lv_obj_align_to(widget->wpm_label, speedometer, LV_ALIGN_OUT_RIGHT_MID, 2, 1);
