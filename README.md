@@ -47,6 +47,7 @@ For setup examples, refer to the shields in my [`zmk-config`](https://github.com
 - highest layer name
 - output status
 - peripheral battery levels
+- WPM meter  
 
 ## Configuration
 
@@ -60,6 +61,19 @@ If you want to use MacOS modifier symbols instead of the Windows modifier symbol
 
 ```ini
 CONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y
+```
+
+### WPM meter
+If you want to completely disable the WPM meter
+
+```ini
+CONFIG_ZMK_DONGLE_DISPLAY_WPM=n
+```
+
+If you want the widget not to measure WPM on specific layers
+
+```ini
+CONFIG_ZMK_DONGLE_DISPLAY_WPM_DISABLED_LAYERS="layers" # comma separated
 ```
 
 ## Smaller OLEDs, with 128x32 pixels
