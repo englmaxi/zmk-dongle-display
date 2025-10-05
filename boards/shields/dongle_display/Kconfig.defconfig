@@ -39,7 +39,7 @@ config ZMK_DONGLE_DISPLAY_LAYER
 
 config ZMK_DONGLE_DISPLAY_WPM
     bool "Display the WPM widget"
-    default y
+    default n
 
 config ZMK_DONGLE_DISPLAY_WPM_DISABLED_LAYERS
     string "Layers in which the widget is disabled, comma separated"

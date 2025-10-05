@@ -64,10 +64,10 @@ CONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y
 ```
 
 ### WPM meter
-If you want to completely disable the WPM meter
+If you want to enable the WPM meter:
 
 ```ini
-CONFIG_ZMK_DONGLE_DISPLAY_WPM=n
+CONFIG_ZMK_DONGLE_DISPLAY_WPM=y
 ```
 
 If you want the widget not to measure WPM on specific layers
