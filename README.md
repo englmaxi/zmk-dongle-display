@@ -47,7 +47,7 @@ For setup examples, refer to the shields in my [`zmk-config`](https://github.com
 - highest layer name
 - output status
 - peripheral battery levels
-- WPM meter  
+- WPM meter
 
 ## Configuration
 
@@ -71,6 +71,19 @@ To set the text alignment for the layer name:
 CONFIG_ZMK_DONGLE_DISPLAY_LAYER_TEXT_ALIGN="left"    # default, or "center", "right"
 ```
 
+
+To customize the width of the layer name label (before it starts scrolling), use:
+
+```ini
+CONFIG_ZMK_DONGLE_DISPLAY_LAYER_NAME_SCROLL_WIDTH=50  # default is 50 pixels
+```
+
+When the layer name exceeds this width, it will scroll horizontally in a circular pattern.
+
+If you set it to >50 then it's better to align text to the right
+
+```ini
+CONFIG_ZMK_DONGLE_DISPLAY_LAYER_TEXT_ALIGN="right"
 ```
 
 ### WPM meter
