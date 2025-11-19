@@ -63,6 +63,16 @@ If you want to use MacOS modifier symbols instead of the Windows modifier symbol
 CONFIG_ZMK_DONGLE_DISPLAY_MAC_MODIFIERS=y
 ```
 
+### Layer name display
+
+To set the text alignment for the layer name:
+
+```ini
+CONFIG_ZMK_DONGLE_DISPLAY_LAYER_TEXT_ALIGN="left"    # default, or "center", "right"
+```
+
+```
+
 ### WPM meter
 If you want to enable the WPM meter:
 

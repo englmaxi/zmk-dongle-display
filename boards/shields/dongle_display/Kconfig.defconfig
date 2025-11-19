@@ -37,6 +37,12 @@ config ZMK_DONGLE_DISPLAY_LAYER
     bool "Display the highest layer widget"
     default y
 
+config ZMK_DONGLE_DISPLAY_LAYER_TEXT_ALIGN
+    string "Layer name text alignment"
+    default "left"
+    help
+        Text alignment for the layer name label. Valid values: "left", "center", "right".
+
 config ZMK_DONGLE_DISPLAY_WPM
     bool "Display the WPM widget"
     default n
