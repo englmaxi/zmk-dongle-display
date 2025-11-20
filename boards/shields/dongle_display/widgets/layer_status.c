@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+#include <string.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
@@ -58,8 +59,17 @@ ZMK_SUBSCRIPTION(widget_layer_status, zmk_layer_state_changed);
 
 int zmk_widget_layer_status_init(struct zmk_widget_layer_status *widget, lv_obj_t *parent) {
     widget->obj = lv_label_create(parent);
-    lv_obj_set_width(widget->obj, 50);
+    lv_obj_set_width(widget->obj, CONFIG_ZMK_DONGLE_DISPLAY_LAYER_NAME_SCROLL_WIDTH);
     lv_label_set_long_mode(widget->obj, LV_LABEL_LONG_SCROLL_CIRCULAR);
+
+    // Set text alignment based on config
+    if (strcmp(CONFIG_ZMK_DONGLE_DISPLAY_LAYER_TEXT_ALIGN, "right") == 0) {
+        lv_obj_set_style_text_align(widget->obj, LV_TEXT_ALIGN_RIGHT, 0);
+    } else if (strcmp(CONFIG_ZMK_DONGLE_DISPLAY_LAYER_TEXT_ALIGN, "center") == 0) {
+        lv_obj_set_style_text_align(widget->obj, LV_TEXT_ALIGN_CENTER, 0);
+    } else {
+        lv_obj_set_style_text_align(widget->obj, LV_TEXT_ALIGN_LEFT, 0);
+    }
 
     sys_slist_append(&widgets, &widget->node);
 
