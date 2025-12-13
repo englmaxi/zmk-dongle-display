@@ -20,6 +20,14 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include "battery_status.h"
 
+#if defined(LVGL_VERSION_MAJOR) && (LVGL_VERSION_MAJOR >= 9)
+#define ZDD_CANVAS_SET_PX(canvas, x, y, color) lv_canvas_set_px((canvas), (x), (y), (color), LV_OPA_COVER)
+#define ZDD_CANVAS_COLOR_FORMAT LV_COLOR_FORMAT_NATIVE
+#else
+#define ZDD_CANVAS_SET_PX(canvas, x, y, color) lv_canvas_set_px((canvas), (x), (y), (color))
+#define ZDD_CANVAS_COLOR_FORMAT LV_IMG_CF_TRUE_COLOR
+#endif
+
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_DONGLE_BATTERY)
     #define SOURCE_OFFSET 1
 #else
@@ -45,31 +53,48 @@ struct battery_object {
     
 static lv_color_t battery_image_buffer[ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET][5 * 8];
 
+static inline void zdd_canvas_draw_rect(lv_obj_t *canvas, int x, int y, int w, int h, bool outline_only) {
+    if (w <= 0 || h <= 0) {
+        return;
+    }
+
+    /* Fill */
+    if (!outline_only) {
+        for (int yy = y; yy < y + h; yy++) {
+            for (int xx = x; xx < x + w; xx++) {
+                ZDD_CANVAS_SET_PX(canvas, xx, yy, lv_color_white());
+            }
+        }
+        return;
+    }
+
+    /* Outline */
+    for (int xx = x; xx < x + w; xx++) {
+        ZDD_CANVAS_SET_PX(canvas, xx, y, lv_color_white());
+        ZDD_CANVAS_SET_PX(canvas, xx, y + h - 1, lv_color_white());
+    }
+    for (int yy = y; yy < y + h; yy++) {
+        ZDD_CANVAS_SET_PX(canvas, x, yy, lv_color_white());
+        ZDD_CANVAS_SET_PX(canvas, x + w - 1, yy, lv_color_white());
+    }
+}
+
 static void draw_battery(lv_obj_t *canvas, uint8_t level, bool usb_present) {
     lv_canvas_fill_bg(canvas, lv_color_black(), LV_OPA_COVER);
     
-    lv_draw_rect_dsc_t rect_fill_dsc;
-    lv_draw_rect_dsc_init(&rect_fill_dsc);
-
-    if (usb_present) {
-        rect_fill_dsc.bg_opa = LV_OPA_TRANSP;
-        rect_fill_dsc.border_color = lv_color_white();
-        rect_fill_dsc.border_width = 1;
-    }
-
-    lv_canvas_set_px(canvas, 0, 0, lv_color_white());
-    lv_canvas_set_px(canvas, 4, 0, lv_color_white());
+    ZDD_CANVAS_SET_PX(canvas, 0, 0, lv_color_white());
+    ZDD_CANVAS_SET_PX(canvas, 4, 0, lv_color_white());
 
     if (level <= 10 || usb_present) {
-        lv_canvas_draw_rect(canvas, 1, 2, 3, 5, &rect_fill_dsc);
+        zdd_canvas_draw_rect(canvas, 1, 2, 3, 5, usb_present);
     } else if (level <= 30) {
-        lv_canvas_draw_rect(canvas, 1, 2, 3, 4, &rect_fill_dsc);
+        zdd_canvas_draw_rect(canvas, 1, 2, 3, 4, false);
     } else if (level <= 50) {
-        lv_canvas_draw_rect(canvas, 1, 2, 3, 3, &rect_fill_dsc);
+        zdd_canvas_draw_rect(canvas, 1, 2, 3, 3, false);
     } else if (level <= 70) {
-        lv_canvas_draw_rect(canvas, 1, 2, 3, 2, &rect_fill_dsc);
+        zdd_canvas_draw_rect(canvas, 1, 2, 3, 2, false);
     } else if (level <= 90) {
-        lv_canvas_draw_rect(canvas, 1, 2, 3, 1, &rect_fill_dsc);
+        zdd_canvas_draw_rect(canvas, 1, 2, 3, 1, false);
     }
 }
 
@@ -151,7 +176,7 @@ int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_statu
         lv_obj_t *image_canvas = lv_canvas_create(widget->obj);
         lv_obj_t *battery_label = lv_label_create(widget->obj);
 
-        lv_canvas_set_buffer(image_canvas, battery_image_buffer[i], 5, 8, LV_IMG_CF_TRUE_COLOR);
+        lv_canvas_set_buffer(image_canvas, battery_image_buffer[i], 5, 8, ZDD_CANVAS_COLOR_FORMAT);
 
         lv_obj_align(image_canvas, LV_ALIGN_TOP_RIGHT, 0, i * 10);
         lv_obj_align(battery_label, LV_ALIGN_TOP_RIGHT, -7, i * 10);

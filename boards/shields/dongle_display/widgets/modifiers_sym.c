@@ -6,9 +6,10 @@
  
 #include <lvgl.h>
 
-/* LVGL 9 removed LV_IMG_CF_INDEXED_1BIT in some configurations; map to a supported format */
+/* LVGL compatibility: some LVGL builds don't expose LV_IMG_CF_INDEXED_1BIT. */
 #ifndef LV_IMG_CF_INDEXED_1BIT
-#define LV_IMG_CF_INDEXED_1BIT LV_IMG_CF_ALPHA_1BIT
+/* LVGL v8 enum value for LV_IMG_CF_INDEXED_1BIT is 7 (UNKNOWN=0, RAW=1..3, TRUE_COLOR=4..6, INDEXED_1BIT=7). */
+#define LV_IMG_CF_INDEXED_1BIT 7
 #endif
 
 #ifndef LV_ATTRIBUTE_MEM_ALIGN
@@ -41,8 +42,6 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_CONTROL u
 
 const lv_img_dsc_t control_icon = {
   .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -75,8 +74,6 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SHIFT uin
 
 const lv_img_dsc_t shift_icon = {
   .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -109,8 +106,6 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_ALT uint8
 
 const lv_img_dsc_t alt_icon = {
   .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -143,8 +138,6 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_WIN uint8
 
 const lv_img_dsc_t win_icon = {
   .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -177,8 +170,6 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_CMD uint8
 
 const lv_img_dsc_t cmd_icon = {
   .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -211,8 +202,6 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_OPT uint8
 
 const lv_img_dsc_t opt_icon = {
   .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,

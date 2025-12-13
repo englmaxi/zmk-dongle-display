@@ -144,6 +144,10 @@ int zmk_widget_modifiers_init(struct zmk_widget_modifiers *widget, lv_obj_t *par
     lv_style_init(&style_line);
     lv_style_set_line_width(&style_line, 2);
 
+    /* LVGL compatibility: LVGL 9 uses lv_point_precise_t, LVGL 8 uses lv_point_t */
+#if defined(LVGL_VERSION_MAJOR) && (LVGL_VERSION_MAJOR < 9)
+    typedef lv_point_t lv_point_precise_t;
+#endif
     static const lv_point_precise_t selection_line_points[] = { {0, 0}, {SIZE_SYMBOLS, 0} };
 
     for (int i = 0; i < NUM_SYMBOLS; i++) {

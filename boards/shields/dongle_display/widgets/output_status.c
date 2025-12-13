@@ -56,6 +56,10 @@ enum selection_line_state {
     selection_line_state_bt
 } current_selection_line_state;
 
+/* LVGL compatibility: LVGL 9 uses lv_point_precise_t, LVGL 8 uses lv_point_t */
+#if defined(LVGL_VERSION_MAJOR) && (LVGL_VERSION_MAJOR < 9)
+typedef lv_point_t lv_point_precise_t;
+#endif
 lv_point_precise_t selection_line_points[] = { {0, 0}, {13, 0} };
 
 struct output_status_state {
