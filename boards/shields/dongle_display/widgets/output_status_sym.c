@@ -4,7 +4,12 @@
  * SPDX-License-Identifier: MIT
  */
  
- #include <lvgl.h>
+#include <lvgl.h>
+
+/* LVGL 9 removed LV_IMG_CF_INDEXED_1BIT in some configurations; map to a supported format */
+#ifndef LV_IMG_CF_INDEXED_1BIT
+#define LV_IMG_CF_INDEXED_1BIT LV_IMG_CF_ALPHA_1BIT
+#endif
 
 
 #ifndef LV_ATTRIBUTE_MEM_ALIGN

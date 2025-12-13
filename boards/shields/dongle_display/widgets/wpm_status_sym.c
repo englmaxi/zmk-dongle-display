@@ -6,6 +6,11 @@
  
 #include <lvgl.h>
 
+/* LVGL 9 removed LV_IMG_CF_INDEXED_1BIT in some configurations; map to a supported format */
+#ifndef LV_IMG_CF_INDEXED_1BIT
+#define LV_IMG_CF_INDEXED_1BIT LV_IMG_CF_ALPHA_1BIT
+#endif
+
 #ifndef LV_ATTRIBUTE_IMG_SPEEDOMETER
 #define LV_ATTRIBUTE_IMG_SPEEDOMETER
 #endif
