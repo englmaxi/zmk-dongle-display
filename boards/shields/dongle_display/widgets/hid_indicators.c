@@ -29,21 +29,30 @@ static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 static void set_hid_indicators(lv_obj_t *label, struct hid_indicators_state state) {
     char text[7] = {};
     bool lock = false;
+    size_t len = 0;
+
+    /* Append helper: keeps text always NUL-terminated */
+    auto void append(const char *s) {
+        while (*s && len < (sizeof(text) - 1)) {
+            text[len++] = *s++;
+        }
+        text[len] = '\0';
+    }
 
     if (state.hid_indicators & LED_CLCK) {
-        strncat(text, "C", 1);
+        append("C");
         lock = true;
     }
     if (state.hid_indicators & LED_NLCK) {
-        strncat(text, "N", 1);
+        append("N");
         lock = true;
     }
     if (state.hid_indicators & LED_SLCK) {
-        strncat(text, "S", 1);
+        append("S");
         lock = true;
     }
     if (lock) {
-        strncat(text, "LCK", 3);
+        append("LCK");
     }
 
     lv_label_set_text(label, text);
