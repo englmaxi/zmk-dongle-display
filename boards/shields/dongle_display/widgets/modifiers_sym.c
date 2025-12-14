@@ -4,7 +4,20 @@
  * SPDX-License-Identifier: MIT
  */
  
- #include <lvgl.h>
+#include <lvgl.h>
+
+/* LVGL compatibility for indexed 1-bit images:
+ * - LVGL 8: LV_IMG_CF_INDEXED_1BIT = 7
+ * - LVGL 9: Uses LV_COLOR_FORMAT_I1 = 2 (completely different value!)
+ */
+#if defined(LVGL_VERSION_MAJOR) && (LVGL_VERSION_MAJOR >= 9)
+#define ZDD_IMG_CF_INDEXED_1BIT LV_COLOR_FORMAT_I1
+#else
+#ifndef LV_IMG_CF_INDEXED_1BIT
+#define LV_IMG_CF_INDEXED_1BIT 7
+#endif
+#define ZDD_IMG_CF_INDEXED_1BIT LV_IMG_CF_INDEXED_1BIT
+#endif
 
 #ifndef LV_ATTRIBUTE_MEM_ALIGN
 #define LV_ATTRIBUTE_MEM_ALIGN
@@ -35,9 +48,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_CONTROL u
 };
 
 const lv_img_dsc_t control_icon = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -69,9 +80,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SHIFT uin
 };
 
 const lv_img_dsc_t shift_icon = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -103,9 +112,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_ALT uint8
 };
 
 const lv_img_dsc_t alt_icon = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -137,9 +144,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_WIN uint8
 };
 
 const lv_img_dsc_t win_icon = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -171,9 +176,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_CMD uint8
 };
 
 const lv_img_dsc_t cmd_icon = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,
@@ -205,9 +208,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_OPT uint8
 };
 
 const lv_img_dsc_t opt_icon = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 14,
   .header.h = 14,
   .data_size = 36,

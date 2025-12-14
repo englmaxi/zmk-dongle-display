@@ -4,7 +4,20 @@
  * SPDX-License-Identifier: MIT
  */
  
- #include <lvgl.h>
+#include <lvgl.h>
+
+/* LVGL compatibility for indexed 1-bit images:
+ * - LVGL 8: LV_IMG_CF_INDEXED_1BIT = 7
+ * - LVGL 9: Uses LV_COLOR_FORMAT_I1 = 2 (completely different value!)
+ */
+#if defined(LVGL_VERSION_MAJOR) && (LVGL_VERSION_MAJOR >= 9)
+#define ZDD_IMG_CF_INDEXED_1BIT LV_COLOR_FORMAT_I1
+#else
+#ifndef LV_IMG_CF_INDEXED_1BIT
+#define LV_IMG_CF_INDEXED_1BIT 7
+#endif
+#define ZDD_IMG_CF_INDEXED_1BIT LV_IMG_CF_INDEXED_1BIT
+#endif
 
 
 #ifndef LV_ATTRIBUTE_MEM_ALIGN
@@ -23,9 +36,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_1 uin
 };
 
 const lv_img_dsc_t sym_1 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 5,
   .header.h = 6,
   .data_size = 14,
@@ -44,9 +55,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_2 uin
 };
 
 const lv_img_dsc_t sym_2 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 5,
   .header.h = 6,
   .data_size = 14,
@@ -65,9 +74,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_3 uin
 };
 
 const lv_img_dsc_t sym_3 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 5,
   .header.h = 6,
   .data_size = 14,
@@ -86,9 +93,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_4 uin
 };
 
 const lv_img_dsc_t sym_4 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 5,
   .header.h = 6,
   .data_size = 14,
@@ -107,9 +112,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_5 uin
 };
 
 const lv_img_dsc_t sym_5 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 5,
   .header.h = 6,
   .data_size = 14,
@@ -128,9 +131,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_OK ui
 };
 
 const lv_img_dsc_t sym_ok = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 5,
   .header.h = 5,
   .data_size = 13,
@@ -149,9 +150,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_NOK u
 };
 
 const lv_img_dsc_t sym_nok = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 5,
   .header.h = 5,
   .data_size = 13,
@@ -170,9 +169,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_OPEN 
 };
 
 const lv_img_dsc_t sym_open = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 5,
   .header.h = 5,
   .data_size = 13,
@@ -194,9 +191,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_BT ui
 };
 
 const lv_img_dsc_t sym_bt = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 9,
   .header.h = 14,
   .data_size = 36,
@@ -218,9 +213,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_SYM_USB u
 };
 
 const lv_img_dsc_t sym_usb = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
-  .header.always_zero = 0,
-  .header.reserved = 0,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 9,
   .header.h = 14,
   .data_size = 36,
