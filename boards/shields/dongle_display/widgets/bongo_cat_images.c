@@ -6,10 +6,17 @@
  
 #include <lvgl.h>
 
-/* LVGL compatibility: some LVGL builds don't expose LV_IMG_CF_INDEXED_1BIT. */
+/* LVGL compatibility for indexed 1-bit images:
+ * - LVGL 8: LV_IMG_CF_INDEXED_1BIT = 7
+ * - LVGL 9: Uses LV_COLOR_FORMAT_I1 = 2 (completely different value!)
+ */
+#if defined(LVGL_VERSION_MAJOR) && (LVGL_VERSION_MAJOR >= 9)
+#define ZDD_IMG_CF_INDEXED_1BIT LV_COLOR_FORMAT_I1
+#else
 #ifndef LV_IMG_CF_INDEXED_1BIT
-/* LVGL v8 enum value for LV_IMG_CF_INDEXED_1BIT is 7 (UNKNOWN=0, RAW=1..3, TRUE_COLOR=4..6, INDEXED_1BIT=7). */
 #define LV_IMG_CF_INDEXED_1BIT 7
+#endif
+#define ZDD_IMG_CF_INDEXED_1BIT LV_IMG_CF_INDEXED_1BIT
 #endif
 
 
@@ -54,7 +61,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BONGO_CAT
 };
 
 const lv_img_dsc_t bongo_cat_none = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 50,
   .header.h = 26,
   .data_size = 190,
@@ -98,7 +105,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BONGO_CAT
 };
 
 const lv_img_dsc_t bongo_cat_left1 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 50,
   .header.h = 26,
   .data_size = 190,
@@ -142,7 +149,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BONGO_CAT
 };
 
 const lv_img_dsc_t bongo_cat_left2 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 50,
   .header.h = 26,
   .data_size = 190,
@@ -186,7 +193,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BONGO_CAT
 };
 
 const lv_img_dsc_t bongo_cat_right1 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 50,
   .header.h = 26,
   .data_size = 190,
@@ -230,7 +237,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BONGO_CAT
 };
 
 const lv_img_dsc_t bongo_cat_right2 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 50,
   .header.h = 26,
   .data_size = 190,
@@ -274,7 +281,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BONGO_CAT
 };
 
 const lv_img_dsc_t bongo_cat_both1 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 50,
   .header.h = 26,
   .data_size = 190,
@@ -318,7 +325,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BONGO_CAT
 };
 
 const lv_img_dsc_t bongo_cat_both1_open = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 50,
   .header.h = 26,
   .data_size = 190,
@@ -362,7 +369,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_BONGO_CAT
 };
 
 const lv_img_dsc_t bongo_cat_both2 = {
-  .header.cf = LV_IMG_CF_INDEXED_1BIT,
+  .header.cf = ZDD_IMG_CF_INDEXED_1BIT,
   .header.w = 50,
   .header.h = 26,
   .data_size = 190,
