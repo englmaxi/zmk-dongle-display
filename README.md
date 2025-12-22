@@ -20,7 +20,7 @@ manifest:
       import: app/west.yml
     - name: zmk-dongle-display
       remote: englmaxi
-      revision: main
+      revision: main # use 'v0.3' instead of 'main' if you use have pinned zmk to 'v0.3' or below
   self:
     path: config
 ```
@@ -128,6 +128,7 @@ CONFIG_LV_Z_VDB_SIZE=32
 - [Redox](https://makerworld.com/en/models/242951) by @rurounikexin
 - [sai44 Dongle](https://github.com/leafflat/sai44/tree/main/STL/Dongle) by @leafflat
 - [ZMK Display Dongle](https://makerworld.com/en/models/496738) by @yingeling
+- [ZMK Dongle for 128X64 I2C OLED Display SSD1306 12864](https://www.printables.com/model/1512201-zmk-dongle-for-128x64-i2c-oled-display-ssd1306-128) by @choovick
 - [ZMK Nice Nano 128x64 OLED Dongle](https://www.printables.com/model/1207682-zmk-nice-nano-128x64-oled-dongle) by @James_909973
 - [Dilemma DIY with 128x32 OLED](https://github.com/rafaelromao/keyboards/tree/main/src/keyboards/bastardkb/dilemma/boards/shields/dilemma)
 
