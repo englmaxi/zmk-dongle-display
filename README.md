@@ -30,12 +30,12 @@ Next, replace the built-in status screen by adding `dongle_display` to your `bui
 ```yaml build.yaml
 ---
 include:
-  - board: seeeduino_xiao_ble
-    shield: sweep_central_dongle dongle_display
+  - board: xiao_ble
+    shield: sweep_dongle dongle_display
 ```
 
 This shield assumes that the [dongle](https://zmk.dev/docs/development/hardware-integration/dongle) is already set up and functioning with the built-in status screen.
-For setup examples, refer to the shields in my [`zmk-config`](https://github.com/englmaxi/zmk-config/tree/master/boards/shields).
+For setup examples, refer to the shields in my [`zmk-config`](https://github.com/englmaxi/zmk-config/tree/main/boards/shields).
 - If you are using the larger 1.3" OLED, replace `solomon,ssd1306fb` with `sinowealth,sh1106` and set `segment-offset = <2>`.
 - If you are using a nice!nano, replace `xiao_i2c` with `pro_micro_i2c`.
 - If you are using the smaller 0.91" OLED, replace `height = <64>;` by `height = <32>;`
