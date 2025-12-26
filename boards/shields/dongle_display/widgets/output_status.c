@@ -97,7 +97,7 @@ static void move_object_x(void *obj, int32_t from, int32_t to) {
     lv_anim_t a;
     lv_anim_init(&a);
     lv_anim_set_var(&a, obj);
-    lv_anim_set_time(&a, 200); // will be replaced with lv_anim_set_duration
+    lv_anim_set_duration(&a, 200);
     lv_anim_set_exec_cb(&a, anim_x_cb);
     lv_anim_set_path_cb(&a, lv_anim_path_overshoot);
     lv_anim_set_values(&a, from, to);
@@ -108,7 +108,7 @@ static void change_size_object(void *obj, int32_t from, int32_t to) {
     lv_anim_t a;
     lv_anim_init(&a);
     lv_anim_set_var(&a, obj);
-    lv_anim_set_time(&a, 200); // will be replaced with lv_anim_set_duration
+    lv_anim_set_duration(&a, 200);
     lv_anim_set_exec_cb(&a, anim_size_cb);
     lv_anim_set_path_cb(&a, lv_anim_path_ease_in_out);
     lv_anim_set_values(&a, from, to);
