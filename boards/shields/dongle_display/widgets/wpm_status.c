@@ -15,6 +15,8 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 LV_IMG_DECLARE(sym_speedometer);
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+static int last_wpm = -1;
+
 struct wpm_status_state
 {
     int wpm;
@@ -34,6 +36,11 @@ static struct wpm_status_state get_state(const zmk_event_t *_eh)
 
 static void set_wpm(struct zmk_widget_wpm_status *widget, struct wpm_status_state state)
 {
+    if (state.wpm == last_wpm) {
+        return;
+    }
+    last_wpm = state.wpm;
+
     if(strstr(CONFIG_ZMK_DONGLE_DISPLAY_WPM_DISABLED_LAYERS, state.layer) != NULL) {
         lv_label_set_text(widget->wpm_label, "-");
         return;

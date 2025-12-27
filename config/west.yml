@@ -11,6 +11,6 @@ manifest:
       import: app/west.yml
     - name: zmk-config
       remote: englmaxi
-      revision: master
+      revision: main
   self:
     path: config
