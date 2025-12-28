@@ -1,6 +1,6 @@
 ---
 include:
-  - board: seeeduino_xiao_ble
-    shield: rommana_central_dongle dongle_display
-  - board: seeeduino_xiao_ble
-    shield: sweep_central_dongle dongle_display
+  - board: xiao_ble
+    shield: rommana_dongle dongle_display
+  - board: xiao_ble
+    shield: sweep_dongle dongle_display
