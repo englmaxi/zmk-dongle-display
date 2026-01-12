@@ -1,4 +1,4 @@
-FROM docker.io/zmkfirmware/zmk-dev-arm:4.1-branch
+FROM docker.io/zmkfirmware/zmk-dev-arm:3.5-branch
 
 ARG ZMK_URL
 ARG ZMK_BRANCH
