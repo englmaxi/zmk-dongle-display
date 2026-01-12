@@ -20,7 +20,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define LED_CLCK 0x02
 #define LED_SLCK 0x04
 
-struct hid_indicators_state {    
+struct hid_indicators_state {
     uint8_t hid_indicators;
 };
 

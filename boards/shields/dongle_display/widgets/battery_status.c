@@ -17,6 +17,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/events/usb_conn_state_changed.h>
 #include <zmk/event_manager.h>
 #include <zmk/usb.h>
+#include <lvgl.h>
 
 #include "battery_status.h"
 
@@ -30,7 +31,21 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #  define ZMK_SPLIT_BLE_PERIPHERAL_COUNT 0
 #endif
 
-#define BUFFER_SIZE LV_CANVAS_BUF_SIZE(5, 8, LV_COLOR_FORMAT_GET_BPP(LV_COLOR_FORMAT_L8), LV_DRAW_BUF_STRIDE_ALIGN)
+#if LVGL_VERSION_MAJOR >= 9
+    #define LV_CANVAS_BUF_SIZE_COMPAT(w, h, bpp, align) \
+        LV_CANVAS_BUF_SIZE(w, h, bpp, align)
+#else
+    #define LV_CANVAS_BUF_SIZE_COMPAT(w, h, bpp, align) \
+        ((w) * (h))
+#endif
+
+#if LVGL_VERSION_MAJOR >= 9
+    #define LVGL_CF_L8 LV_COLOR_FORMAT_L8
+#else
+    #define LVGL_CF_L8 LV_IMG_CF_TRUE_COLOR
+#endif
+
+#define BUFFER_SIZE LV_CANVAS_BUF_SIZE_COMPAT(5, 8, LV_COLOR_FORMAT_GET_BPP(LV_COLOR_FORMAT_L8), LV_DRAW_BUF_STRIDE_ALIGN)
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
@@ -44,14 +59,16 @@ struct battery_object {
     lv_obj_t *symbol;
     lv_obj_t *label;
 } battery_objects[ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET];
-    
+
 static lv_color_t battery_image_buffer[ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET][BUFFER_SIZE];
 
 static void draw_battery(lv_obj_t *canvas, uint8_t level, bool usb_present) {
     lv_canvas_fill_bg(canvas, lv_color_black(), LV_OPA_COVER);
-    
+
+#if LVGL_VERSION_MAJOR >= 9
     lv_layer_t layer;
     lv_canvas_init_layer(canvas, &layer);
+#endif
 
     lv_draw_rect_dsc_t rect_fill_dsc;
     lv_draw_rect_dsc_init(&rect_fill_dsc);
@@ -63,12 +80,17 @@ static void draw_battery(lv_obj_t *canvas, uint8_t level, bool usb_present) {
         rect_fill_dsc.border_width = 1;
     }
 
+#if LVGL_VERSION_MAJOR >= 9
     lv_canvas_set_px(canvas, 0, 0, lv_color_white(), LV_OPA_COVER);
     lv_canvas_set_px(canvas, 4, 0, lv_color_white(), LV_OPA_COVER);
+#else
+    lv_canvas_set_px(canvas, 0, 0, lv_color_white());
+    lv_canvas_set_px(canvas, 4, 0, lv_color_white());
+#endif
 
     lv_area_t rect_coords;
     bool rect_draw = true;
-    
+
     if (level <= 10 || usb_present) {
         rect_coords = (lv_area_t){1, 2, 3, 6};
     } else if (level <= 30) {
@@ -84,10 +106,22 @@ static void draw_battery(lv_obj_t *canvas, uint8_t level, bool usb_present) {
     }
 
     if (rect_draw) {
+#if LVGL_VERSION_MAJOR >= 9
         lv_draw_rect(&layer, &rect_fill_dsc, &rect_coords);
+#else
+        lv_canvas_draw_rect(
+            canvas,
+            rect_coords.x1,
+            rect_coords.y1,
+            rect_coords.x2 - rect_coords.x1 + 1,
+            rect_coords.y2 - rect_coords.y1 + 1,
+            &rect_fill_dsc);
+#endif
     }
 
+#if LVGL_VERSION_MAJOR >= 9
     lv_canvas_finish_layer(canvas, &layer);
+#endif
 }
 
 static void set_battery_symbol(lv_obj_t *widget, struct battery_state state) {
@@ -100,7 +134,7 @@ static void set_battery_symbol(lv_obj_t *widget, struct battery_state state) {
 
     draw_battery(symbol, state.level, state.usb_present);
     lv_label_set_text_fmt(label, "%4u%% ", state.level);
-    
+
     if (state.level > 0 || state.usb_present) {
         lv_obj_clear_flag(symbol, LV_OBJ_FLAG_HIDDEN);
         lv_obj_move_foreground(symbol);
@@ -136,7 +170,7 @@ static struct battery_state central_battery_status_get_state(const zmk_event_t *
     };
 }
 
-static struct battery_state battery_status_get_state(const zmk_event_t *eh) { 
+static struct battery_state battery_status_get_state(const zmk_event_t *eh) {
     if (as_zmk_peripheral_battery_state_changed(eh) != NULL) {
         return peripheral_battery_status_get_state(eh);
     } else {
@@ -168,14 +202,14 @@ int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_statu
         lv_obj_t *image_canvas = lv_canvas_create(widget->obj);
         lv_obj_t *battery_label = lv_label_create(widget->obj);
 
-        lv_canvas_set_buffer(image_canvas, battery_image_buffer[i], 5, 8, LV_COLOR_FORMAT_L8);
+        lv_canvas_set_buffer(image_canvas, battery_image_buffer[i], 5, 8, LVGL_CF_L8);
 
         lv_obj_align(image_canvas, LV_ALIGN_TOP_RIGHT, 0, i * 10);
         lv_obj_align_to(battery_label, image_canvas, LV_ALIGN_OUT_LEFT_MID, 0, 0);
 
         lv_obj_add_flag(image_canvas, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(battery_label, LV_OBJ_FLAG_HIDDEN);
-        
+
         battery_objects[i] = (struct battery_object){
             .symbol = image_canvas,
             .label = battery_label,

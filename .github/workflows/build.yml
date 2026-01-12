@@ -3,3 +3,14 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      build_matrix_path: build.yaml
+      config_path: config
+      archive_name: firmware-zmk-main
+
+  build-zmk-0dot3:
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3.0
+    with:
+      build_matrix_path: build-zmk-0.3.yaml
+      config_path: config-zmk-0.3
+      archive_name: firmware-zmk-v0.3
