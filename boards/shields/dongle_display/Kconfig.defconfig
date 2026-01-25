@@ -63,10 +63,10 @@ choice ZMK_DISPLAY_WORK_QUEUE
 endchoice
 
 config LV_Z_MEM_POOL_SIZE
-    default 8192
+    default 16384
 
 config LV_Z_VDB_SIZE
-    default 64
+    default 100
 
 config LV_DPI_DEF
     default 148

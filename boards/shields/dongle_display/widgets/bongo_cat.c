@@ -20,6 +20,8 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define SRC(array) (const void **)array, sizeof(array) / sizeof(lv_img_dsc_t *)
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+static int64_t last_anim_update_time = 0;
+#define ANIM_UPDATE_INTERVAL_MS 200  // Throttle: max 5 animation checks per second
 
 LV_IMG_DECLARE(bongo_cat_none);
 LV_IMG_DECLARE(bongo_cat_left1);
@@ -82,6 +84,13 @@ enum anim_state {
 } current_anim_state;
 
 static void set_animation(lv_obj_t *animing, struct bongo_cat_wpm_status_state state) {
+    // Throttle animation state changes to prevent display thread flooding
+    int64_t now = k_uptime_get();
+    if ((now - last_anim_update_time) < ANIM_UPDATE_INTERVAL_MS) {
+        return;
+    }
+    last_anim_update_time = now;
+
     if (state.wpm < 5) {
         if (current_anim_state != anim_state_idle) {
             lv_animimg_set_src(animing, SRC(idle_imgs));
@@ -119,7 +128,8 @@ static void set_animation(lv_obj_t *animing, struct bongo_cat_wpm_status_state s
 
 struct bongo_cat_wpm_status_state bongo_cat_wpm_status_get_state(const zmk_event_t *eh) {
     struct zmk_wpm_state_changed *ev = as_zmk_wpm_state_changed(eh);
-    return (struct bongo_cat_wpm_status_state) { .wpm = ev->state };
+    // Add NULL check to prevent crash if event is NULL
+    return (struct bongo_cat_wpm_status_state) { .wpm = ev ? ev->state : 0 };
 };
 
 void bongo_cat_wpm_status_update_cb(struct bongo_cat_wpm_status_state state) {
