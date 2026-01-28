@@ -1,0 +1,32 @@
+{
+  "name": "ZMK Development",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      // git clone settings
+      "ZMK_URL": "https://github.com/zmkfirmware/zmk.git",
+      "ZMK_BRANCH": "main",
+      "ZMK_PATH": "/zmk"
+    }
+  },
+  "runArgs": [
+    "--security-opt",
+    "label=disable"
+  ],
+  // update zmk after run
+  "updateContentCommand": "cd $ZMK_PATH && git pull",
+  "containerEnv": {
+    // vars for the build scripts
+    "WORKSPACE_PATH": "${containerWorkspaceFolder}",
+    "ZMK_PATH": "/zmk",
+    "BUILD_SUBFOLDER": "build"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-vscode.cpptools", "spadin.zmk-tools"],
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+  }
+}
