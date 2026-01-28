@@ -16,6 +16,8 @@ LV_IMG_DECLARE(sym_speedometer);
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 static int last_wpm = -1;
+static int64_t last_wpm_update_time = 0;
+#define WPM_UPDATE_INTERVAL_MS 250  // Throttle: max 4 updates per second
 
 struct wpm_status_state
 {
@@ -36,12 +38,22 @@ static struct wpm_status_state get_state(const zmk_event_t *_eh)
 
 static void set_wpm(struct zmk_widget_wpm_status *widget, struct wpm_status_state state)
 {
+    // Early exit if WPM unchanged
     if (state.wpm == last_wpm) {
         return;
     }
+
+    // Throttle updates to prevent display thread flooding
+    int64_t now = k_uptime_get();
+    if ((now - last_wpm_update_time) < WPM_UPDATE_INTERVAL_MS) {
+        return;
+    }
+    last_wpm_update_time = now;
     last_wpm = state.wpm;
 
-    if(strstr(CONFIG_ZMK_DONGLE_DISPLAY_WPM_DISABLED_LAYERS, state.layer) != NULL) {
+    // NULL check for layer name before strstr to prevent crash
+    if (state.layer != NULL &&
+        strstr(CONFIG_ZMK_DONGLE_DISPLAY_WPM_DISABLED_LAYERS, state.layer) != NULL) {
         lv_label_set_text(widget->wpm_label, "-");
         return;
     }
