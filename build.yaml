@@ -1,6 +1,6 @@
 ---
 include:
-  - board: xiao_ble
+  - board: xiao_ble//zmk
     shield: rommana_dongle dongle_display
-  - board: xiao_ble
+  - board: xiao_ble//zmk
     shield: sweep_dongle dongle_display
