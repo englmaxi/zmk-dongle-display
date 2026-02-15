@@ -1,0 +1,6 @@
+/.west/
+/zmk/
+/zmk-config/
+/optional/
+/zephyr/
+/build/

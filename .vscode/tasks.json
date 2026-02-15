@@ -1,0 +1,54 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Rommana (ZMK unstable)",
+      "type": "shell",
+      "command": "build-rommana",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Sweep (ZMK unstable)",
+      "type": "shell",
+      "command": "build-sweep",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Build Rommana (ZMK v0.3.0)",
+      "type": "shell",
+      "command": "build-rommana",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "env": {
+          "CONFIG_DIR": "config-zmk-0.3"
+        }
+      }
+    },
+    {
+      "label": "Build Sweep (ZMK v0.3.0)",
+      "type": "shell",
+      "command": "build-sweep",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "env": {
+          "CONFIG_DIR": "config-zmk-0.3"
+        }
+      }
+    }
+  ]
+}

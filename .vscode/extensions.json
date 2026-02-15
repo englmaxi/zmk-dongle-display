@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode",
+    "ms-vscode.cpptools",
+    "plorefice.devicetree",
+    "twxs.cmake"
+  ]
+}
