@@ -29,6 +29,14 @@ config ZMK_DONGLE_DISPLAY_BONGO_CAT
     bool "Display the Bongo Cat widget"
     default y
 
+config ZMK_DONGLE_DISPLAY_COMPACT_32PX
+    bool "Use compact widget placement for 32-pixel-high displays"
+    default n
+    help
+        Center the 50x26 Bongo Cat so it does not overlap the battery
+        widget on 128x32 displays. Disable the layer widget separately if
+        the configured layer label still competes for the bottom-right area.
+
 config ZMK_DONGLE_DISPLAY_MODIFIERS
     bool "Display the modifiers widget"
     default y
